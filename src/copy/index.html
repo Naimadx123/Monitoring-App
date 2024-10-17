@@ -1,8 +1,18 @@
 <!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>Electron Project</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';">
+    <title>Monitoring App</title>
   </head>
   <body>
-    <h1>Working!!!</h1>
+  <div id="window-controls">
+    <button id="minimize">_</button>
+    <button id="maximize">[ ]</button>
+    <button id="close">X</button>
+  </div>
+
+  <div id="root"></div>
+    <script src="bundle.js"></script>
   </body>
 </html>

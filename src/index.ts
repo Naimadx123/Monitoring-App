@@ -1,19 +1,52 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from 'electron';
 
-app.on("ready", () => {
-  console.log("App is ready");
+let mainWindow: BrowserWindow | null;
 
-  const win = new BrowserWindow({
-    width: 2080,
-    height: 1080,
-    icon: './copy/icons/icon.ico',
+function createWindow() {
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    frame: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
   });
 
-  const indexHTML = "./copy/index.html";
-  win
-    .loadFile(indexHTML)
-    .then(() => {
-      // IMPLEMENT FANCY STUFF HERE
-    })
-    .catch((e) => console.error(e));
+  mainWindow.loadFile('./copy/index.html')
+    .then(() => {});
+
+  mainWindow.on('closed', () => {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', createWindow);
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', () => {
+  if (mainWindow === null) {
+    createWindow();
+  }
+});
+
+ipcMain.on('window-control', (_event, action) => {
+  if (mainWindow) {
+    switch (action) {
+      case 'minimize':
+        mainWindow.minimize();
+        break;
+      case 'maximize':
+        mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize();
+        break;
+      case 'close':
+        mainWindow.close();
+        break;
+    }
+  }
 });
