@@ -1,0 +1,39 @@
+{
+  "name": "image-hosting",
+  "authors": [
+    "naimad"
+  ],
+  "description": "Test",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./build/index.js",
+  "scripts": {
+    "compile": "tsc && copyfiles -u 1 src/copy/**/* ./build",
+    "start": "npm run compile && electron ./build/index.js"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.5.0",
+    "@electron-forge/maker-squirrel": "^7.5.0",
+    "electron": "^33.0.0",
+    "prettier": "^3.3.1",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "copyfiles": "^2.4.1",
+    "systeminformation": "^5.23.5"
+  },
+  "config": {
+    "forge": {
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "certificateFile": "./cert/cert.pfx",
+            "certificatePassword": "V7FPBujy2pYb9WLkamCe35TwdzGxDR6A"
+          }
+        }
+      ]
+    }
+  }
+}
