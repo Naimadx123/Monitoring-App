@@ -13,6 +13,7 @@ dist-ssr
 *.local
 build
 cert/*
+package-lock.json
 
 # Editor directories and files
 .vscode/*
