@@ -6,8 +6,8 @@ module.exports = {
     {
       name: '@electron-forge/maker-squirrel',
       config: {
-        authors: 'Naimad',
-        description: 'An example Electron app'
+        authors: 'Naimad, Kala',
+        description: 'Focus'
       }
     }
   ]

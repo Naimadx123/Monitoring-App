@@ -1,20 +1,9 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import App from './App';
-import { ipcRenderer } from 'electron';
+// import { ipcRenderer } from 'electron';
+import {createRoot} from "react-dom/client";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const root = createRoot(document.getElementById('root')!);
+root.render(<App />);
 
-
-document.getElementById('minimize')?.addEventListener('click', () => {
-  ipcRenderer.send('window-control', 'minimize');
-});
-
-document.getElementById('maximize')?.addEventListener('click', () => {
-  ipcRenderer.send('window-control', 'maximize');
-});
-
-document.getElementById('close')?.addEventListener('click', () => {
-  ipcRenderer.send('window-control', 'close');
-});
 

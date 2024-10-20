@@ -1,16 +1,24 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
+// import {TasksManager} from "./utils/TasksManager";
+import {DatabaseTask} from "./utils/DatabaseTask.js";
+import * as path from "node:path";
 
 let mainWindow: BrowserWindow | null;
+let databaseTask: DatabaseTask;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    frame: false,
+    resizable: true,
+    width: 400,
+    height: 700,
+    titleBarStyle: 'hidden',
+    titleBarOverlay: true,
+    transparent: false,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false,
-    },
+      contextIsolation: true,
+      preload: path.resolve('./build/preload/preload.cjs'),
+    }
   });
 
   mainWindow.loadFile('./copy/index.html')
@@ -19,6 +27,8 @@ function createWindow() {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+
+  databaseTask = new DatabaseTask(app)
 }
 
 app.on('ready', createWindow);
@@ -35,18 +45,11 @@ app.on('activate', () => {
   }
 });
 
-ipcMain.on('window-control', (_event, action) => {
-  if (mainWindow) {
-    switch (action) {
-      case 'minimize':
-        mainWindow.minimize();
-        break;
-      case 'maximize':
-        mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize();
-        break;
-      case 'close':
-        mainWindow.close();
-        break;
-    }
-  }
+ipcMain.handle('get-tasks', () => {
+  return databaseTask.getTasks();
+});
+
+ipcMain.handle('update-task-done-status', (_event, id: number, done: boolean) => {
+  databaseTask.updateTaskDoneStatus(id, done);
+  return;
 });

@@ -1,5 +1,5 @@
 {
-  "name": "image-hosting",
+  "name": "focus",
   "authors": [
     "naimad"
   ],
@@ -9,13 +9,18 @@
   "type": "module",
   "main": "./build/index.js",
   "scripts": {
-    "compile": "tsc && copyfiles -u 1 src/copy/**/* ./build && webpack --config webpack.config.js",
-    "start": "npm run compile && electron ./build/index.js"
+    "compile": "tsc && copyfiles -u 1 src/copy/**/* ./build && webpack --config webpack.config.js && webpack --config webpack.preload.config.js",
+    "start": "npm run compile && electron ./build/index.js",
+    "dev": "electron ./build/index.js",
+    "rebuild": "electron-rebuild"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.5.0",
     "@electron-forge/maker-squirrel": "^7.5.0",
+    "@types/better-sqlite3": "^7.6.11",
+    "copy-webpack-plugin": "^12.0.2",
     "electron": "^33.0.0",
+    "electron-rebuild": "^3.2.9",
     "html-webpack-plugin": "^5.6.2",
     "prettier": "^3.3.1",
     "ts-loader": "^9.5.1",
@@ -27,7 +32,9 @@
   "dependencies": {
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
+    "better-sqlite3": "^11.4.0",
     "copyfiles": "^2.4.1",
+    "electron-window-controls": "^1.0.28",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "systeminformation": "^5.23.5"

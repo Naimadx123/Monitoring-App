@@ -2,7 +2,7 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
-  entry: './src/renderer/index.tsx',
+  entry: './src/preload/preload.ts',
   target: 'electron-renderer',
   mode: 'development',
   module: {
@@ -15,16 +15,11 @@ export default {
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.jsx'],
+    extensions: ['.tsx', '.ts', '.js', '.jsx', '.cjs'],
   },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve("build/copy"),
+    filename: 'preload.cjs',
+    path: path.resolve("build/preload"),
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: 'build/copy/index.html',
-    }),
-  ],
   devtool: 'source-map',
 };
