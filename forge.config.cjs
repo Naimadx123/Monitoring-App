@@ -1,10 +1,16 @@
+const path = require('path');
+
 module.exports = {
   packagerConfig: {
     icon: './icons/icon', // no file extension required
     extraFiles: [
       {
-        from: './build/renderer',
-        to: 'renderer',
+        from: path.join(__dirname, 'build', 'renderer'),
+        to: path.join('renderer'),
+      },
+      {
+        from: path.join(__dirname, 'build', 'preload', 'preload.cjs'),
+        to: path.join('preload', 'preload.cjs'),
       },
     ],
   },

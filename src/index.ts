@@ -1,10 +1,12 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-// import {TasksManager} from "./utils/TasksManager";
+import { fileURLToPath } from 'url';
 import {DatabaseTask} from "./utils/DatabaseTask.js";
 import * as path from "node:path";
 
 let mainWindow: BrowserWindow | null;
 let databaseTask: DatabaseTask;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -17,11 +19,11 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: true,
-      preload: path.resolve('./build/preload/preload.cjs'),
+      preload: path.join(__dirname, 'preload', 'preload.cjs'),
     }
   });
 
-  mainWindow.loadFile('./copy/index.html')
+  mainWindow.loadFile(path.join(__dirname, 'copy', 'index.html'))
     .then(() => {});
 
   mainWindow.on('closed', () => {
