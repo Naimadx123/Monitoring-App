@@ -1,7 +1,8 @@
 {
   "name": "focus",
   "authors": [
-    "naimad"
+    "naimad",
+    "kala"
   ],
   "description": "Test",
   "private": true,
@@ -38,18 +39,5 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "systeminformation": "^5.23.5"
-  },
-  "config": {
-    "forge": {
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "certificateFile": "./cert/cert.pfx",
-            "certificatePassword": "V7FPBujy2pYb9WLkamCe35TwdzGxDR6A"
-          }
-        }
-      ]
-    }
   }
 }
